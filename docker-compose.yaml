@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+    etcd1:
+        image: quay.io/coreos/etcd:v3.2
+        ports:
+            - 2379:2379
+        environment:
+          - ETCD_NAME=etcd1
+          - ETCD_INITIAL_ADVERTISE_PEER_URLS=https://etcd1:2380
+          - ETCD_LISTEN_PEER_URLS=https://0.0.0.0:2380
+          - ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379
+          - ETCD_ADVERTISE_CLIENT_URLS=https://etcd1:2379
+          - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
+          - ETCD_INITIAL_CLUSTER=etcd1=https://etcd1:2380,etcd2=https://etcd2:2380,etcd3=https://etcd3:2380
+          - ETCD_INITIAL_CLUSTER_STATE=new
+          - ETCD_TRUSTED_CA_FILE=/etc/certs/ca.pem
+          - ETCD_CERT_FILE=/etc/certs/member-etcd1.pem
+          - ETCD_KEY_FILE=/etc/certs/member-etcd1-key.pem
+          - ETCD_PEER_TRUSTED_CA_FILE=/etc/certs/ca.pem
+          - ETCD_PEER_CERT_FILE=/etc/certs/member-etcd1.pem
+          - ETCD_PEER_KEY_FILE=/etc/certs/member-etcd1-key.pem
+          - ETCD_PEER_CLIENT_CERT_AUTH=true
+        volumes:
+          - ./certs:/etc/certs
+    etcd2:
+        image: quay.io/coreos/etcd:v3.2
+        environment:
+            - ETCD_NAME=etcd2
+            - ETCD_INITIAL_ADVERTISE_PEER_URLS=https://etcd2:2380
+            - ETCD_LISTEN_PEER_URLS=https://0.0.0.0:2380
+            - ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379
+            - ETCD_ADVERTISE_CLIENT_URLS=https://etcd2:2379
+            - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
+            - ETCD_INITIAL_CLUSTER=etcd1=https://etcd1:2380,etcd2=https://etcd2:2380,etcd3=https://etcd3:2380
+            - ETCD_INITIAL_CLUSTER_STATE=new
+            - ETCD_TRUSTED_CA_FILE=/etc/certs/ca.pem
+            - ETCD_CERT_FILE=/etc/certs/member-etcd1.pem
+            - ETCD_KEY_FILE=/etc/certs/member-etcd1-key.pem
+            - ETCD_PEER_TRUSTED_CA_FILE=/etc/certs/ca.pem
+            - ETCD_PEER_CERT_FILE=/etc/certs/member-etcd1.pem
+            - ETCD_PEER_KEY_FILE=/etc/certs/member-etcd1-key.pem
+            - ETCD_PEER_CLIENT_CERT_AUTH=true
+        volumes:
+           - ./certs:/etc/certs
+    etcd3:
+        image: quay.io/coreos/etcd:v3.2
+        environment:
+            - ETCD_NAME=etcd3
+            - ETCD_INITIAL_ADVERTISE_PEER_URLS=https://etcd3:2380
+            - ETCD_LISTEN_PEER_URLS=https://0.0.0.0:2380
+            - ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379
+            - ETCD_ADVERTISE_CLIENT_URLS=https://etcd3:2379
+            - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
+            - ETCD_INITIAL_CLUSTER=etcd1=https://etcd1:2380,etcd2=https://etcd2:2380,etcd3=https://etcd3:2380
+            - ETCD_INITIAL_CLUSTER_STATE=new
+            - ETCD_TRUSTED_CA_FILE=/etc/certs/ca.pem
+            - ETCD_CERT_FILE=/etc/certs/member-etcd1.pem
+            - ETCD_KEY_FILE=/etc/certs/member-etcd1-key.pem
+            - ETCD_PEER_TRUSTED_CA_FILE=/etc/certs/ca.pem
+            - ETCD_PEER_CERT_FILE=/etc/certs/member-etcd1.pem
+            - ETCD_PEER_KEY_FILE=/etc/certs/member-etcd1-key.pem
+            - ETCD_PEER_CLIENT_CERT_AUTH=true
+        volumes:
+            - ./certs:/etc/certs
