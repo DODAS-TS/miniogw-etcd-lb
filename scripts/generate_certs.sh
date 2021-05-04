@@ -1,6 +1,9 @@
 #!/bin/bash
 
 mkdir -p certs
+
+cp scritps/openssl.conf certs/
+
 cd certs
 
 openssl genrsa -out ca-key.pem 2048
